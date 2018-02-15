@@ -1,14 +1,15 @@
-const Papa = require('papaparse')
-require('./speakers.csv')
+const fs = require('fs')
+const parse = require('csv-parse')
 
-Papa.parse('speakers.csv', {
-  delimete: ',',
-  header: true,
-  skipEmptyLines: true,
-  complete: function (results) {
-    console.log(results)
-  },
-  error: function (error) {
-    console.log(error)
+fs.readFile('./speakers2.csv', function (error, data) {
+  if (error) {
+    throw error
   }
+
+  parse(data, { columns: true }, function (error, data) {
+    if (error) {
+      throw error
+    }
+    console.log(data)
+  })
 })
